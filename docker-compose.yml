@@ -2,7 +2,7 @@ services:
   php:
     image: tuhinsu/php:latest
     restart: unless-stopped
-    container_name: wbemms.nic.in.local
+    container_name: wbemms.nic.in.dev
     user: vscode
     volumes:
       - ./ees:/app
@@ -11,7 +11,7 @@ services:
   db:
     image: postgis/postgis:latest
     restart: unless-stopped
-    container_name: db.nic.in.local
+    container_name: db.nic.in.dev
     environment:
       POSTGRES_USER: ees
       POSTGRES_PASSWORD: ees@1234
@@ -22,12 +22,12 @@ services:
   redis:
     image: redis:latest
     restart: unless-stopped
-    container_name: redis.nic.in.local
+    container_name: redis.nic.in.dev
 
   pgadmin:
     image: dpage/pgadmin4:latest
     restart: unless-stopped
-    container_name: pgadmin.nic.in.local
+    container_name: pgadmin.nic.in.dev
     environment:
       PGADMIN_DEFAULT_EMAIL: test
       PGADMIN_DEFAULT_PASSWORD: test
