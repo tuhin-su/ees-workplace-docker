@@ -18,16 +18,9 @@ services:
       POSTGRES_DB: ees
     volumes:
       - ./pgdata:/var/lib/postgresql/data
+      - ./shared:/shared
 
   redis:
     image: redis:latest
     restart: unless-stopped
     container_name: redis.nic.in.dev
-
-  pgadmin:
-    image: dpage/pgadmin4:latest
-    restart: unless-stopped
-    container_name: pgadmin.nic.in.dev
-    environment:
-      PGADMIN_DEFAULT_EMAIL: test
-      PGADMIN_DEFAULT_PASSWORD: test
