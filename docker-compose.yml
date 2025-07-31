@@ -2,17 +2,20 @@ services:
   php:
     image: tuhinsu/php:latest
     restart: unless-stopped
-    container_name: wbemms.nic.in.dev
+    container_name: ees.test
     user: vscode
     volumes:
       - ./ees:/app
       - dotfiles:/home/vscode
+      - ~/.ssh:/home/vscode/.ssh:ro
+      - ~/.gitconfig:/home/vscode/.gitconfig:ro
+      - ~/.git-credentials:/home/vscode/.git-credentials:ro
     working_dir: /app
     
   db:
     image: postgis/postgis:15-3.3-alpine
     restart: unless-stopped
-    container_name: db.nic.in.dev
+    container_name: db.ees.test
     environment:
       POSTGRES_USER: ees
       POSTGRES_PASSWORD: ees@1234
@@ -24,8 +27,15 @@ services:
   redis:
     image: redis:latest
     restart: unless-stopped
-    container_name: redis.nic.in.dev
+    container_name: redis.ees.test
 
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    restart: unless-stopped
+    container_name: pgadmin.ees.test
+    environment:
+      PGADMIN_DEFAULT_EMAIL: test@email.com
+      PGADMIN_DEFAULT_PASSWORD: test
 volumes:
   dotfiles:
     external: true
