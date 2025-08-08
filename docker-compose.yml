@@ -6,7 +6,7 @@ services:
     user: vscode
     volumes:
       - ./ees:/app
-      - dotfiles:/home/vscode
+      - ./dotfiles:/home/vscode
       - ~/.ssh:/home/vscode/.ssh:ro
       - ~/.gitconfig:/home/vscode/.gitconfig:ro
       - ~/.git-credentials:/home/vscode/.git-credentials:ro
@@ -22,7 +22,6 @@ services:
       POSTGRES_DB: ees
     volumes:
       - ./pgdata:/var/lib/postgresql/data
-      - ./shared:/shared
 
   redis:
     image: redis:latest
@@ -36,6 +35,14 @@ services:
     environment:
       PGADMIN_DEFAULT_EMAIL: test@email.com
       PGADMIN_DEFAULT_PASSWORD: test
-volumes:
-  dotfiles:
-    external: true
+    volumes:
+      - ./pgadmin:/var/lib/pgadmin
+  
+  node:
+    image: tuhinsu/node:lts
+    restart: unless-stopped
+    container_name: node.ees.test
+    user: vscode
+    volumes:
+      - ./ees:/app
+    command: sh -c "npm install &&npm run watch"
