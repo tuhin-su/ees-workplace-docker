@@ -13,7 +13,7 @@ services:
     working_dir: /app
     
   db:
-    image: postgis/postgis:15-3.3-alpine
+    image: postgis/postgis:17-master
     restart: unless-stopped
     container_name: db.ees.test
     environment:
