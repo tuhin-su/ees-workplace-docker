@@ -3,13 +3,11 @@ services:
     image: tuhinsu/php:latest
     restart: unless-stopped
     container_name: ees.test
+    hostname: ees.test
     user: vscode
     volumes:
-      - ./ees:/app
+      - ./www:/app
       - ./dotfiles:/home/vscode
-      - ~/.ssh:/home/vscode/.ssh:ro
-      - ~/.gitconfig:/home/vscode/.gitconfig:ro
-      - ~/.git-credentials:/home/vscode/.git-credentials:ro
     working_dir: /app
     
   db:
@@ -42,7 +40,8 @@ services:
     image: tuhinsu/node:lts
     restart: unless-stopped
     container_name: node.ees.test
+    hostname: node.ees.test
     user: vscode
     volumes:
-      - ./ees:/app
-    command: sh -c "npm install &&npm run watch"
+      - ./www:/app
+      - ./dotfiles:/home/vscode
