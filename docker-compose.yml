@@ -1,14 +1,15 @@
 services:
   php:
-    image: tuhinsu/php:latest
+    image: tuhinsu/dev-php
     restart: unless-stopped
     container_name: ees.test
-    hostname: ees.test
+    hostname: dev
     user: vscode
+    command: "zsh -c 'sleep infinity'"
     volumes:
-      - ./www:/app
+      - ./www:/www
       - ./dotfiles:/home/vscode
-    working_dir: /app
+    working_dir: /www
     
   db:
     image: postgis/postgis:17-master
@@ -35,13 +36,3 @@ services:
       PGADMIN_DEFAULT_PASSWORD: test
     volumes:
       - ./pgadmin:/var/lib/pgadmin
-  
-  node:
-    image: tuhinsu/node:lts
-    restart: unless-stopped
-    container_name: node.ees.test
-    hostname: node.ees.test
-    user: vscode
-    volumes:
-      - ./www:/app
-      - ./dotfiles:/home/vscode
